@@ -25,8 +25,8 @@ names(CStudent)<-c("國別","total103","total104","total105","total106")
 CStudent<-CStudent%>%
   mutate(總人數 =rowSums(CStudent[,2:5]))%>%
   select(國別,總人數)%>%
-  arrange(desc(總人數))%>%
-  head(10)
+  arrange(desc(總人數))#%>%
+  #head(10)
 
 #又哪間大學的境外生最多呢？請取出前十名的大學與總人數，由大到小排序(5分)。
 S103<- read_csv("103_ab103_S.csv")
@@ -69,12 +69,17 @@ ggplot()+geom_bar(data=CStudent,
                   stat = "identity") 
 
 #承1，請用面量圖呈現各個國家來台灣唸書的學生人數，人數越多顏色越深(10分)。
-install.packages(c("choroplethr","choroplethrMaps")) 
+ 
 library(choroplethr)
 library(choroplethrMaps)
-data(country.names)
-df = data.frame(region=country.names, value=sample(1:length(country.names)))
-choroplethr(df, lod="world")
+CCompare <- read_csv("CountriesComparisionTable.csv")
+
+names(CCompare)<-c("ISO3","English","國別")
+CCompare<-merge(CStudent,CCompare,by = "國別")
+df = data.frame(region=CCompare$English, value=CCompare$總人數)
+df<-df[!duplicated(df$region), ]
+country_choropleth(df)
+
 
 #4.台灣大專院校的學生最喜歡去哪些國家進修交流呢？請取出前十名的國家與總人數，由大到小排序(5分)。
 library(readxl)
@@ -110,12 +115,32 @@ twc10<-twc%>%
   head(10)
 
 #承7，請用面量圖呈現台灣學生去各國家留學人數，人數越多顏色越深(10分)。
-#請問來台讀書與離台讀書的來源國與留學國趨勢是否相同(5分)？
 
-ggplot(dtanalysis, 
-       aes(x =x, 
-           y =y)) + 
-  geom_point()+facet_grid(Species~.)+
-  geom_smooth()
+#請問來台讀書與離台讀書的來源國與留學國趨勢是否相同(5分)？
+library(ggplot2)
+
+mix<-merge(CStudent,twc,by = "國別")
+
+ggplot(mix, 
+       aes(x =總人數.x, 
+           y =總人數.y)) + 
+  geom_point()+
+  geom_smooth(method = 'lm')
+
 #想來台灣唸書的境外生，他們的母國也有很多台籍生嗎？請圖文並茂說明你的觀察(10分)。
 #以上程式碼清晰程度與排版彈性給10分
+
+library(ggmap)
+worldmap<-get_googlemap(center = c(lon = 0,lat = 0),zoom = 2,language = "zh-TW")
+ggmap(worldmap)
+
+library(choroplethr)
+data("country.regions")
+data("country.map")
+df = data.frame(region=country.regions, value=sample(1:length(region)))
+choroplethr(df, lod="world")
+
+ggplot()+
+  borders("world",colour = "grey",fill = "lightblue")+
+  coord_map()+
+  theme_void()
