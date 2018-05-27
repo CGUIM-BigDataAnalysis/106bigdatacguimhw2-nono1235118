@@ -1,0 +1,128 @@
+---
+title: "106-2 大數據分析方法 作業一"
+output: github_document
+author: 林姿頻
+---
+
+搞不清楚各行各業的薪資差異嗎? 念研究所到底對第一份工作的薪資影響有多大? CP值高嗎? 透過分析**初任人員平均經常性薪資**- [開放資料連結](https://data.gov.tw/dataset/6647)，可初步了解台灣近幾年各行各業、各學歷的起薪。
+
+## 比較103年度和105年度大學畢業者的薪資資料
+
+### 資料匯入與處理
+```{r dataload}
+library(jsonlite)
+library(httr)
+library(dplyr)
+
+data103<-fromJSON("https://apiservice.mol.gov.tw/OdService/download/A17000000J-020066-wtF")
+data104<-fromJSON("https://apiservice.mol.gov.tw/OdService/download/A17000000J-020066-5aV")
+data105<-fromJSON("https://apiservice.mol.gov.tw/OdService/download/A17000000J-020066-45f")
+newdf<-merge(data103,data105,by="大職業別")
+```
+
+### 105年度薪資較103年度薪資高的職業有哪些? 請按照提高比例由大到小排序(3分)，呈現前十名的資料(2分)，並用文字說明結果(10分)
+```{r compare103105}
+newdf$`大學-薪資.x`<-gsub("—|…","NA",newdf$`大學-薪資.x`)
+newdf$`大學-薪資.x`<-as.numeric(newdf$`大學-薪資.x`)
+newdf$`大學-薪資.y`<-gsub("—|…","NA",newdf$`大學-薪資.y`)
+newdf$`大學-薪資.y`<-as.numeric(newdf$`大學-薪資.y`)
+newdf$`百分比`<-(newdf$`大學-薪資.y`/newdf$`大學-薪資.x`)
+Arrangedf<-newdf%>%arrange(desc(`百分比`))
+knitr::kable(head(Arrangedf,10))
+```
+
+輸出結果為105年度薪資較103年度薪資高的職業前10名
+
+### 提高超過5%的的職業有哪些? 
+```{r over5}
+newFilter<-newdf%>%filter(`百分比`>1.05)
+knitr::kable(head(newFilter))
+```
+
+### 主要的職業種別是哪些種類呢?
+```{r mainType}
+split1<-data.frame(strsplit(newFilter$`大職業別`,"-"),stringsAsFactors = F)
+Career<-c()
+for (n in 1:34) {
+  Career<-c(Career,split1[1,n])
+}
+knitr::kable(table(Career))
+```
+
+## 男女同工不同酬現況分析
+
+男女同工不同酬一直是性別平等中很重要的問題，分析資料來源為103到105年度的大學畢業薪資。
+
+### 103到105年度的大學畢業薪資資料，哪些行業男生薪資比女生薪資多?依照差異大小由大到小排序(3分)，呈現前十名的資料(2分)
+```{r male}
+data103$`大學-女/男`<-gsub("—|…","NA",data103$`大學-女/男`)
+data103$`大學-女/男`<-as.numeric(data103$`大學-女/男`)
+arrange103<-data103%>%arrange(`大學-女/男`)
+
+data104$`大學-女/男`<-gsub("—|…","NA",data104$`大學-女/男`)
+data104$`大學-女/男`<-as.numeric(data104$`大學-女/男`)
+arrange104<-data104%>%arrange(`大學-女/男`)
+
+data105$`大學-女/男`<-gsub("—|…","NA",data105$`大學-女/男`)
+data105$`大學-女/男`<-as.numeric(data105$`大學-女/男`)
+arrange105<-data105%>%arrange(`大學-女/男`)
+
+knitr::kable(head(arrange103,10))
+knitr::kable(head(arrange104,10))
+knitr::kable(head(arrange105,10))
+```
+
+此為103年-105年男生薪資比女生薪資多的前10名
+
+### 哪些行業女生薪資比男生薪資多?依照差異大小由大到小排序(3分)，呈現前十名的資料(2分)
+```{r female}
+a103<-arrange103%>%arrange(desc(`大學-女/男`))
+a104<-arrange104%>%arrange(desc(`大學-女/男`))
+a105<-arrange105%>%arrange(desc(`大學-女/男`))
+
+knitr::kable(head(filter(a103,`大學-女/男`>100),10))
+knitr::kable(head(filter(a104,`大學-女/男`>100),10))
+knitr::kable(head(filter(a105,`大學-女/男`>100),10))
+```
+
+103年未出現女生薪資比男生薪資多的職業
+104年與105年女生薪資比男生薪資多的職業各只有1筆
+
+## 研究所薪資差異
+
+以105年度的資料來看，哪個職業別念研究所最划算呢 (研究所學歷薪資與大學學歷薪資增加比例最多)?
+
+### 請按照薪資差異比例由大到小排序(3分)，呈現前十名的資料(2分)，並用文字說明結果(10分)
+```{r grad}
+new105<-data105
+new105$`大學-薪資`<-gsub("—|…",NA,new105$`大學-薪資`)
+new105$`研究所及以上-薪資`<-gsub("—|…",NA,new105$`研究所及以上-薪資`)
+new105$`大學-薪資`<-as.numeric(new105$`大學-薪資`)
+new105$`研究所及以上-薪資`<-as.numeric(new105$`研究所及以上-薪資`)
+new105$`薪資比例`<-(new105$`研究所及以上-薪資`)/(new105$`大學-薪資`)
+new105<-new105%>%arrange(desc(`薪資比例`))
+knitr::kable(head(new105,10))
+```
+
+此結果為105年度研究所學歷薪資與大學學歷薪資增加比例最高的前10名，由此得知念研究所專精這些專業知識能在業界更吃香
+
+## 我有興趣的職業別薪資狀況分析
+
+### 有興趣的職業別篩選，呈現薪資
+```{r like}
+mycareer<-filter(new105,`大職業別`=="資訊及通訊傳播業-專業人員")
+knitr::kable(mycareer)
+```
+
+### 請問此薪資與妳想像中的一樣嗎?(5分)
+
+接近四萬，已心滿意足
+
+### 這些職業別研究所薪資與大學薪資差多少呢？
+```{r likeGrad}
+mycareer$`研究所及以上-薪資`-mycareer$`大學-薪資`
+```
+
+### 會因為這樣改變心意，決定念/不念研究所嗎?(5分)
+
+不會，因為補習費很貴，而且目前覺得現在的學歷不夠好，不想只領22K嗚嗚

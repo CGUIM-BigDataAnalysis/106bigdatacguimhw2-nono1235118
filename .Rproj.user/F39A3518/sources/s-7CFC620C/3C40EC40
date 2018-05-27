@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1527409404584.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "3C40EC40",
+    "lastKnownWriteTime" : 8389754637979513667,
+    "last_content_update" : 1527409404584,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "3D6D7DAA",
+        "caption" : "TCstudent",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=TCstudent&cache_key=3D6D7DAA",
+        "displayedObservations" : 10,
+        "environment" : "",
+        "object" : "TCstudent",
+        "preview" : 0,
+        "totalObservations" : 10,
+        "variables" : 2
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
