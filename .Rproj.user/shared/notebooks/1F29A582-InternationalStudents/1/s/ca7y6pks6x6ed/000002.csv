@@ -1,0 +1,21 @@
+"0","twc<- read_csv(""105fuck.csv"")
+"
+"2","Missing column names filled in: 'X4' [4], 'X5' [5], 'X6' [6]"
+"2","Parsed with column specification:
+cols(
+  洲別 = col_character(),
+  國別 = col_character(),
+  總人數 = col_number(),
+  X4 = col_character(),
+  X5 = col_character(),
+  X6 = col_character()
+)
+"
+"2","Warning message:
+"
+"2","In strsplit(code, ""\n"", fixed = TRUE) :"
+"2","
+ "
+"2"," input string 1 is invalid in this locale
+"
+"0","twc[,4:6]<-NULL"

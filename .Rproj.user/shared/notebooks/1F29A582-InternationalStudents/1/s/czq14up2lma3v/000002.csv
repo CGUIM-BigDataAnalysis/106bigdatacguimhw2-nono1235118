@@ -1,0 +1,98 @@
+"0","S103<- read_csv(""103_ab103_S.csv"")
+"
+"2","Parsed with column specification:
+cols(
+  ¾Ç®ÕÃþ«¬ = col_character(),
+  ¾Ç®Õ¥N½X = col_character(),
+  ¾Ç®Õ¦WºÙ = col_character(),
+  `¾Ç¦ì¥Í-¥¿¦¡­×Åª¾Ç¦ì¥~°ê¥Í` = col_integer(),
+  `¾Ç¦ì¥Í-¹´¥Í(§t´ä¿D)` = col_integer(),
+  `¾Ç¦ì¥Í-¥¿¦¡­×Åª¾Ç¦ì³°¥Í` = col_integer(),
+  `«D¾Ç¦ì¥Í-¥~°ê¥æ´«¥Í` = col_integer(),
+  `«D¾Ç¦ì¥Í-¥~°êµu´Á¬ã²ß¤Î­Ó¤H¿ïÅª` = col_integer(),
+  `«D¾Ç¦ì¥Í-¤j±Mªþ³]µØ»y¤å¤¤¤ß¾Ç¥Í` = col_integer(),
+  `«D¾Ç¦ì¥Í-¤j³°¬ã­×¥Í` = col_character(),
+  `«D¾Ç¦ì¥Í-®ü«C¯Z` = col_integer(),
+  ¹Ò¥~±M¯Z = col_integer()
+)
+"
+"2","Warning message:
+"
+"2","In strsplit(code, ""\n"", fixed = TRUE) :"
+"2","
+ "
+"2"," input string 1 is invalid in this locale
+"
+"0","S104<- read_csv(""104_ab104_S.csv"")"
+"2","Parsed with column specification:
+cols(
+  ¾Ç®ÕÃþ«¬ = col_character(),
+  ¾Ç®Õ¥N½X = col_character(),
+  ¾Ç®Õ¦WºÙ = col_character(),
+  `¾Ç¦ì¥Í-¥¿¦¡­×Åª¾Ç¦ì¥~°ê¥Í` = col_integer(),
+  `¾Ç¦ì¥Í-¹´¥Í(§t´ä¿D)` = col_integer(),
+  `¾Ç¦ì¥Í-¥¿¦¡­×Åª¾Ç¦ì³°¥Í` = col_integer(),
+  `«D¾Ç¦ì¥Í-¥~°ê¥æ´«¥Í` = col_integer(),
+  `«D¾Ç¦ì¥Í-¥~°êµu´Á¬ã²ß¤Î­Ó¤H¿ïÅª` = col_integer(),
+  `«D¾Ç¦ì¥Í-¤j±Mªþ³]µØ»y¤å¤¤¤ß¾Ç¥Í` = col_integer(),
+  `«D¾Ç¦ì¥Í-¤j³°¬ã­×¥Í` = col_character(),
+  `«D¾Ç¦ì¥Í-®ü«C¯Z` = col_integer(),
+  ¹Ò¥~±M¯Z = col_integer()
+)
+"
+"0","S105<- read_csv(""105_ab105_S.csv"")"
+"2","Parsed with column specification:
+cols(
+  ¾Ç®ÕÃþ«¬ = col_character(),
+  ¾Ç®Õ¥N½X = col_character(),
+  ¾Ç®Õ¦WºÙ = col_character(),
+  ¾Ç¦ì¥Í_¥¿¦¡­×Åª¾Ç¦ì¥~°ê¥Í = col_integer(),
+  `¾Ç¦ì¥Í_¹´¥Í(§t´ä¿D)` = col_integer(),
+  ¾Ç¦ì¥Í_¥¿¦¡­×Åª¾Ç¦ì³°¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_¥~°ê¥æ´«¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_¥~°êµu´Á¬ã²ß¤Î­Ó¤H¿ïÅª = col_integer(),
+  «D¾Ç¦ì¥Í_¤j±Mªþ³]µØ»y¤å¤¤¤ß¾Ç¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_¤j³°¬ã­×¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_®ü«C¯Z = col_integer(),
+  ¹Ò¥~±M¯Z = col_integer()
+)
+"
+"0","S106<- read_csv(""106_ab105_S.csv"")"
+"2","Parsed with column specification:
+cols(
+  ¾Ç®ÕÃþ«¬ = col_character(),
+  ¾Ç®Õ¥N½X = col_character(),
+  ¾Ç®Õ¦WºÙ = col_character(),
+  ¾Ç¦ì¥Í_¥¿¦¡­×Åª¾Ç¦ì¥~°ê¥Í = col_integer(),
+  `¾Ç¦ì¥Í_¹´¥Í(§t´ä¿D)` = col_integer(),
+  ¾Ç¦ì¥Í_¥¿¦¡­×Åª¾Ç¦ì³°¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_¥~°ê¥æ´«¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_¥~°êµu´Á¬ã²ß¤Î­Ó¤H¿ïÅª = col_integer(),
+  «D¾Ç¦ì¥Í_¤j±Mªþ³]µØ»y¤å¤¤¤ß¾Ç¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_¤j³°¬ã­×¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_®ü«C¯Z = col_integer(),
+  ¹Ò¥~±M¯Z = col_integer()
+)
+"
+"0","S103$`éžå­¸ä½ç”Ÿ-å¤§é™¸ç ”ä¿®ç”Ÿ`<-as.numeric(gsub(""â€¦"",NA,S103$`éžå­¸ä½ç”Ÿ-å¤§é™¸ç ”ä¿®ç”Ÿ`))"
+"0","S104$`éžå­¸ä½ç”Ÿ-å¤§é™¸ç ”ä¿®ç”Ÿ`<-as.numeric(gsub(""â€¦"",NA,S104$`éžå­¸ä½ç”Ÿ-å¤§é™¸ç ”ä¿®ç”Ÿ`))"
+"0","S103$total<-rowSums(S103[,4:12],na.rm = T)"
+"0","S104$total<-rowSums(S104[,4:12],na.rm = T)"
+"0","S105$total<-rowSums(S105[,4:12],na.rm = T)"
+"0","S106$total<-rowSums(S106[,4:12],na.rm = T)"
+"0","SStudent<-merge(select(S103,""å­¸æ ¡åç¨±"",total),"
+"0","                select(S104,""å­¸æ ¡åç¨±"",total),"
+"0","                by = ""å­¸æ ¡åç¨±"")"
+"0","SStudent<-merge(SStudent,"
+"0","                select(S105,""å­¸æ ¡åç¨±"",total),"
+"0","                by = ""å­¸æ ¡åç¨±"")"
+"0","SStudent<-merge(SStudent,"
+"0","                select(S106,""å­¸æ ¡åç¨±"",total),"
+"0","                by = ""å­¸æ ¡åç¨±"")"
+"2","column names ¡¥total.x¡¦, ¡¥total.y¡¦ are duplicated in the result"
+"0","names(SStudent)<-c(""å­¸æ ¡åç¨±"",""total103"",""total104"",""total105"",""total106"")"
+"0","SStudent<-SStudent%>%"
+"0","  mutate(ç¸½äººæ•¸=rowSums(SStudent[,2:5]))%>%"
+"0","  select(å­¸æ ¡åç¨±,ç¸½äººæ•¸)%>%"
+"0","  arrange(desc(ç¸½äººæ•¸))"
+"0","  head(SStudent,10)"

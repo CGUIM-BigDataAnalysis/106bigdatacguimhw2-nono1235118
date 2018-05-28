@@ -1,0 +1,26 @@
+"0","library(choroplethr)
+"
+"2","Warning message:
+"
+"2","In strsplit(code, ""\n"", fixed = TRUE) :"
+"2","
+ "
+"2"," input string 1 is invalid in this locale
+"
+"0","library(choroplethrMaps)"
+"0","CCompare <- read_csv(""CountriesComparisionTable.csv"")"
+"2","Parsed with column specification:
+cols(
+  ISO3 = col_character(),
+  English = col_character(),
+  Taiwan = col_character()
+)
+"
+"0","names(CCompare)<-c(""ISO3"",""English"",""國別"")"
+"0","CCompare<-merge(CStudent,CCompare,by = ""國別"")"
+"0","df = data.frame(region=CCompare$English, value=CCompare$總人數)"
+"0","df<-df[!duplicated(df$region), ]"
+"0","country_choropleth(df)"
+"2","Your data.frame contains the following regions which are not mappable: Unmatch, Singapore"
+"2","Column `region` joining character vector and factor, coercing into character vector"
+"2","The following regions were missing and are being set to NA: afghanistan, angola, moldova, madagascar, mali, montenegro, mauritania, burundi, niger, oman, qatar, western sahara, sierra leone, somaliland, somalia, suriname, chad, togo, east timor, trinidad and tobago, taiwan, the bahamas, vanuatu, zambia, albania, botswana, central african republic, democratic republic of the congo, northern cyprus, cyprus, djibouti, eritrea, gabon, georgia, ghana, antarctica, guinea, guinea bissau, equatorial guinea, guyana, jamaica, south korea, kosovo, lebanon, liberia, libya, lesotho"

@@ -1,0 +1,13 @@
+"0","TSstudent<-TWstudent%>%
+  group_by(學校名稱)%>%
+  summarise(總人數=sum(小計))%>%
+  arrange(desc(總人數))
+"
+"2","Warning message:
+"
+"2","In strsplit(code, ""\n"", fixed = TRUE) :"
+"2","
+ "
+"2"," input string 1 is invalid in this locale
+"
+"0","  head(TSstudent,10)"

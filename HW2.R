@@ -37,7 +37,6 @@ S106<- read_csv("106_ab105_S.csv")
 S103$`非學位生-大陸研修生`<-as.numeric(gsub("…",NA,S103$`非學位生-大陸研修生`))
 S104$`非學位生-大陸研修生`<-as.numeric(gsub("…",NA,S104$`非學位生-大陸研修生`))
 
-
 S103$total<-rowSums(S103[,4:12],na.rm = T)
 S104$total<-rowSums(S104[,4:12],na.rm = T)
 S105$total<-rowSums(S105[,4:12],na.rm = T)
@@ -61,9 +60,7 @@ SStudent<-SStudent%>%
   head(10)
 
 #承1，請用bar chart呈現各個國家(全部)來台灣唸書的學生人數(10分)。
-install.packages("ggplot2")
 library(ggplot2)
-
 ggplot()+geom_bar(data=CStudent,
                   aes(x=國別,y=總人數),
                   stat = "identity") 
@@ -109,10 +106,10 @@ ggplot()+geom_bar(data=TSstudent,
 library(readr)
 twc<- read_csv("105fuck.csv")
 twc[,4:6]<-NULL
-twc10<-twc%>%
+twc<-twc%>%
   select("國別","總人數")%>%
-  arrange(desc(總人數))%>%
-  head(10)
+  arrange(desc(總人數))
+head(twc,10)
 
 #承7，請用面量圖呈現台灣學生去各國家留學人數，人數越多顏色越深(10分)。
 
