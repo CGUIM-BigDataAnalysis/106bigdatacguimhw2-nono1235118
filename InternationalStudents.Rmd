@@ -13,7 +13,6 @@ author: 林姿頻
 ## 來台境外生分析
 ### 資料匯入與處理
 ```{r dataloadToTWN}
-#這是R Code Chunk
 library(readr)
 library(dplyr)
 C103 <- read_csv("103_ab103_C.csv")
@@ -34,21 +33,7 @@ CStudent<-merge(CStudent,
                 select(C106,"國別",total),
                 by = "國別",all=T)
 names(CStudent)<-c("國別","total103","total104","total105","total106")
-```
 
-### 哪些國家來台灣唸書的學生最多呢？ 
-```{r ToTWNCountry}
-#這是R Code Chunk
-CStudent<-CStudent%>%
-  mutate(總人數=rowSums(CStudent[,2:5]))%>%
-  select(國別,總人數)%>%
-  arrange(desc(總人數))
-  head(CStudent,10)
-```
-
-### 哪間大學的境外生最多呢？
-```{r ToTWNUniversity}
-#這是R Code Chunk
 S103<- read_csv("103_ab103_S.csv")
 S104<- read_csv("104_ab104_S.csv")
 S105<- read_csv("105_ab105_S.csv")
@@ -73,33 +58,42 @@ SStudent<-merge(SStudent,
                 by = "學校名稱")
 names(SStudent)<-c("學校名稱","total103","total104","total105","total106")
 
+```
+
+### 1.哪些國家來台灣唸書的學生最多呢？請取出前十名的國家與總人數，由大到小排序(5分)。 
+```{r ToTWNCountry}
+CStudent<-CStudent%>%
+  mutate(總人數=rowSums(CStudent[,2:5]))%>%
+  select(國別,總人數)%>%
+  arrange(desc(總人數))
+knitr::kable(head(CStudent,10))
+```
+
+### 哪間大學的境外生最多呢？請取出前十名的大學與總人數，由大到小排序(5分)
+```{r ToTWNUniversity}
 SStudent<-SStudent%>%
   mutate(總人數=rowSums(SStudent[,2:5]))%>%
   select(學校名稱,總人數)%>%
   arrange(desc(總人數))
-
-  head(SStudent,10)
+knitr::kable(head(SStudent,10))
 ```
 
-### 各個國家來台灣唸書的學生人數條狀圖
+### 2.各個國家來台灣唸書的學生人數條狀圖
 ```{r ToTWNCountryBar}
-#這是R Code Chunk
 library(ggplot2)
 ggplot()+geom_bar(data=CStudent,
                   aes(x=國別,y=總人數),
                   stat = "identity") 
 ```
 
-### 各個國家來台灣唸書的學生人數面量圖
+### 3.各個國家來台灣唸書的學生人數面量圖
 ```{r ToTWNCountryMap}
-#這是R Code Chunk
 library(choroplethr)
 library(choroplethrMaps)
 CCompare <- read_csv("CountriesComparisionTable.csv")
-
 names(CCompare)<-c("ISO3","English","國別")
 CCompare<-merge(CStudent,CCompare,by = "國別")
-df = data.frame(region=CCompare$English, value=CCompare$總人數)
+df = data.frame(region=CCompare$English, value=CCompare$來源國人數)
 df<-df[!duplicated(df$region), ]
 country_choropleth(df)
 ```
@@ -108,7 +102,6 @@ country_choropleth(df)
 
 ### 資料匯入與處理
 ```{r dataloadFromTWN}
-#這是R Code Chunk
 library(readxl)
 library(dplyr)
 TWstudent<- read_excel("Student_RPT_07.xlsx")
@@ -116,27 +109,24 @@ TWstudent<- read_excel("Student_RPT_07.xlsx")
 
 ### 台灣大專院校的學生最喜歡去哪些國家進修交流呢？
 ```{r FromTWNCountry}
-#這是R Code Chunk
 TCstudent<-TWstudent%>%
   group_by(`對方學校(機構)國別(地區)`)%>%
   summarise(總人數=sum(小計))%>%
   arrange(desc(總人數))
-  head(TCstudent,10)
+knitr::kable(head(TCstudent,10))
 ```
 
 ### 哪間大學的出國交流學生數最多呢？
 ```{r FromTWNUniversity}
-#這是R Code Chunk
 TSstudent<-TWstudent%>%
   group_by(學校名稱)%>%
   summarise(總人數=sum(小計))%>%
   arrange(desc(總人數))
-  head(TSstudent,10)
+knitr::kable(head(TSstudent,10))
 ```
 
 ### 台灣大專院校的學生最喜歡去哪些國家進修交流條狀圖
 ```{r FromTWNCountryBar}
-#這是R Code Chunk
 ggplot()+geom_bar(data=TSstudent,
                   aes(x=學校名稱,y=總人數),
                   stat = "identity") 
@@ -144,33 +134,40 @@ ggplot()+geom_bar(data=TSstudent,
 
 ### 台灣大專院校的學生最喜歡去哪些國家進修交流面量圖
 ```{r FromTWNCountryMap}
-#這是R Code Chunk
-
+names(TCstudent)<-c("國別","總人數")
+TCompare<-merge(TCstudent,CCompare,by = "國別")
+df = data.frame(region=TCompare$English, value=TCompare$總人數)
+df<-df[!duplicated(df$region), ]
+country_choropleth(df)
 ```
 
 ## 台灣學生出國留學分析
 
 ### 資料匯入與處理
 ```{r dataloadFromTWNAb}
-#這是R Code Chunk
 twc<- read_csv("105fuck.csv")
 twc[,4:6]<-NULL
 ```
 
 ### 台灣學生最喜歡去哪些國家留學呢？
 ```{r FromTWNAb}
-#這是R Code Chunk
 twc<-twc%>%
   select("國別","總人數")%>%
   arrange(desc(總人數))
-head(twc,10)
+knitr::kable(head(twc,10))
 ```
 
 ### 台灣學生最喜歡去哪些國家留學面量圖
 ```{r FromTWNAbMap}
-#這是R Code Chunk
+TwcCompare<-merge(twc,CCompare,by = "國別")
+df = data.frame(region=TwcCompare$English, value=TwcCompare$總人數)
+df<-df[!duplicated(df$region), ]
+country_choropleth(df)
 ```
 
 ## 綜合分析
 
-請問來台讀書與離台讀書的來源國與留學國趨勢是否相同(5分)？想來台灣唸書的境外生，他們的母國也有很多台籍生嗎？請圖文並茂說明你的觀察(10分)。
+請問來台讀書與離台讀書的來源國與留學國趨勢是否相同(5分)？
+想來台灣唸書的境外生，他們的母國也有很多台籍生嗎？請圖文並茂說明你的觀察(10分)。
+
+
