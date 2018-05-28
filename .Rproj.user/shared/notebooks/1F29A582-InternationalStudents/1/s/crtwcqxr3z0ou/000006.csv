@@ -1,0 +1,13 @@
+"0","ggplot(a, 
+       aes(x =留學國人數, 
+           y =來源國人數,
+           color=國別)) + 
+  geom_point()
+"
+"2","Warning message:
+"
+"2","In strsplit(code, ""\n"", fixed = TRUE) :"
+"2","
+ "
+"2"," input string 1 is invalid in this locale
+"

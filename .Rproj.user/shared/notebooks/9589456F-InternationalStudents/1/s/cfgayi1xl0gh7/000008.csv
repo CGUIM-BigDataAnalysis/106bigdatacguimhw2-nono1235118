@@ -1,0 +1,13 @@
+"0","--------------------------------------------------------------------------
+Compare <- read_csv(""GitHub/106bigdatacguimhw2-paperfish/CountriesComparisionTable.csv"")
+"
+"2","Error: 'GitHub/106bigdatacguimhw2-paperfish/CountriesComparisionTable.csv' does not exist in current working directory ('C:/Users/BRIER/Documents/GitHub/106bigdatacguimhw2-paperfish-master/106bigdatacguimhw2-paperfish-master').
+"
+"2","In addition: "
+"2","Warning message:
+"
+"2","In strsplit(code, ""\n"", fixed = TRUE) :"
+"2","
+ "
+"2"," input string 1 is invalid in this locale
+"

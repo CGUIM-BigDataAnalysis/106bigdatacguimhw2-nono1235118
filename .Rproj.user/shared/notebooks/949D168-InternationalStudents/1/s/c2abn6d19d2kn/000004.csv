@@ -1,0 +1,14 @@
+"0","#新增一欄位""總人數""將每一年度的和做加總，為103-106年度為止來台念書的總人數，並從多到少排序"
+"0","library(dplyr)"
+"2","Warning message:
+"
+"2","In strsplit(code, ""\n"", fixed = TRUE) :"
+"2","
+ "
+"2"," input string 1 is invalid in this locale
+"
+"0","CStudent<-CStudent%>%"
+"0","  mutate(總人數 =rowSums(CStudent[,2:5]))%>%"
+"0","  select(國別,總人數)%>%"
+"0","  arrange(desc(總人數))"
+"0","kable(head(CStudent,10))"

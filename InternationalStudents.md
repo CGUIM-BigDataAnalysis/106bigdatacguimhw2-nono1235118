@@ -12,7 +12,6 @@
 ### 資料匯入與處理
 
 ``` r
-#這是R Code Chunk
 library(readr)
 library(dplyr)
 ```
@@ -125,36 +124,7 @@ CStudent<-merge(CStudent,
 
 ``` r
 names(CStudent)<-c("國別","total103","total104","total105","total106")
-```
 
-### 哪些國家來台灣唸書的學生最多呢？
-
-``` r
-#這是R Code Chunk
-CStudent<-CStudent%>%
-  mutate(總人數=rowSums(CStudent[,2:5]))%>%
-  select(國別,總人數)%>%
-  arrange(desc(總人數))
-knitr::kable(head(CStudent,10))
-```
-
-| 國別     | 總人數 |
-|:---------|:------:|
-| 中國大陸 | 152524 |
-| 馬來西亞 |  62031 |
-| 香港     |  31940 |
-| 日本     |  28200 |
-| 越南     |  21670 |
-| 澳門     |  20302 |
-| 印尼     |  19620 |
-| 南韓     |  16948 |
-| 美國     |  14846 |
-| 泰國     |  7035  |
-
-### 哪間大學的境外生最多呢？
-
-``` r
-#這是R Code Chunk
 S103<- read_csv("103_ab103_S.csv")
 ```
 
@@ -259,7 +229,36 @@ SStudent<-merge(SStudent,
 
 ``` r
 names(SStudent)<-c("學校名稱","total103","total104","total105","total106")
+```
 
+### 1.哪些國家來台灣唸書的學生最多呢？請取出前十名的國家與總人數，由大到小排序(5分)。
+
+``` r
+library(dplyr)
+CStudent<-CStudent%>%
+  mutate(總人數=rowSums(CStudent[,2:5]))%>%
+  select(國別,總人數)%>%
+  arrange(desc(總人數))
+CStudent10<-head(CStudent,10)
+knitr::kable(CStudent10)
+```
+
+| 國別     | 總人數 |
+|:---------|:------:|
+| 中國大陸 | 152524 |
+| 馬來西亞 |  62031 |
+| 香港     |  31940 |
+| 日本     |  28200 |
+| 越南     |  21670 |
+| 澳門     |  20302 |
+| 印尼     |  19620 |
+| 南韓     |  16948 |
+| 美國     |  14846 |
+| 泰國     |  7035  |
+
+### 哪間大學的境外生最多呢？請取出前十名的大學與總人數，由大到小排序(5分)
+
+``` r
 SStudent<-SStudent%>%
   mutate(總人數=rowSums(SStudent[,2:5]))%>%
   select(學校名稱,總人數)%>%
@@ -280,24 +279,26 @@ knitr::kable(head(SStudent,10))
 | 逢甲大學         |  9474  |
 | 中原大學         |  7662  |
 
-### 各個國家來台灣唸書的學生人數條狀圖
+### 2.各個國家來台灣唸書的學生人數條狀圖
 
 ``` r
-#這是R Code Chunk
 library(ggplot2)
-ggplot()+geom_bar(data=CStudent,
-                  aes(x=國別,y=總人數),
-                  stat = "identity") 
+ggplot()+geom_bar(data=CStudent10,
+                  aes(x=國別,y=總人數,fill = 國別),
+                  stat = "identity")+
+  labs(title = "各個國家來台灣唸書的學生人數")+
+  geom_label(position = position_stack(vjust = 0.5),
+             size = 2.3,
+             colour = 'black')+
+  guides(fill = F)+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1,vjust = 0.5)) 
 ```
-
-    ## Warning: Removed 38 rows containing missing values (position_stack).
 
 ![](InternationalStudents_files/figure-markdown_github/ToTWNCountryBar-1.png)
 
-### 各個國家來台灣唸書的學生人數面量圖
+### 3.各個國家來台灣唸書的學生人數面量圖
 
 ``` r
-#這是R Code Chunk
 library(choroplethr)
 ```
 
@@ -319,8 +320,7 @@ library(choroplethr)
     ##     apply
 
 ``` r
-library(choroplethrMaps)
-CCompare <- read_csv("CountriesComparisionTable.csv")
+Compare <- read_csv("CountriesComparisionTable.csv")
 ```
 
     ## Parsed with column specification:
@@ -331,11 +331,12 @@ CCompare <- read_csv("CountriesComparisionTable.csv")
     ## )
 
 ``` r
-names(CCompare)<-c("ISO3","English","國別")
-CCompare<-merge(CStudent,CCompare,by = "國別")
+names(Compare)<-c("ISO3","English","國別")
+CCompare<-merge(CStudent,Compare,by = "國別")
 df = data.frame(region=CCompare$English, value=CCompare$總人數)
 df<-df[!duplicated(df$region), ]
-country_choropleth(df)
+country_choropleth(df)+ 
+                 scale_fill_brewer(name="總人數", palette=4, na.value="white")
 ```
 
     ## Warning in super$initialize(country.map, user.df): Your data.frame contains
@@ -354,6 +355,9 @@ country_choropleth(df)
     ## bissau, equatorial guinea, guyana, jamaica, south korea, kosovo, lebanon,
     ## liberia, libya, lesotho
 
+    ## Scale for 'fill' is already present. Adding another scale for 'fill',
+    ## which will replace the existing scale.
+
 ![](InternationalStudents_files/figure-markdown_github/ToTWNCountryMap-1.png)
 
 台灣學生國際交流分析
@@ -362,16 +366,13 @@ country_choropleth(df)
 ### 資料匯入與處理
 
 ``` r
-#這是R Code Chunk
 library(readxl)
-library(dplyr)
 TWstudent<- read_excel("Student_RPT_07.xlsx")
 ```
 
 ### 台灣大專院校的學生最喜歡去哪些國家進修交流呢？
 
 ``` r
-#這是R Code Chunk
 TCstudent<-TWstudent%>%
   group_by(`對方學校(機構)國別(地區)`)%>%
   summarise(總人數=sum(小計))%>%
@@ -395,12 +396,12 @@ knitr::kable(head(TCstudent,10))
 ### 哪間大學的出國交流學生數最多呢？
 
 ``` r
-#這是R Code Chunk
 TSstudent<-TWstudent%>%
   group_by(學校名稱)%>%
   summarise(總人數=sum(小計))%>%
   arrange(desc(總人數))
-knitr::kable(head(TSstudent,10))
+TSstudent10<-head(TSstudent,10)
+knitr::kable(TSstudent10)
 ```
 
 | 學校名稱     | 總人數 |
@@ -419,10 +420,15 @@ knitr::kable(head(TSstudent,10))
 ### 台灣大專院校的學生最喜歡去哪些國家進修交流條狀圖
 
 ``` r
-#這是R Code Chunk
-ggplot()+geom_bar(data=TSstudent,
-                  aes(x=學校名稱,y=總人數),
-                  stat = "identity") 
+ggplot()+geom_bar(data=TSstudent10,
+                  aes(x=學校名稱,y=總人數,fill=學校名稱),
+                  stat = "identity")+
+  labs(title = "台灣大專院校的學生最喜歡去哪些國家進修")+
+  geom_label(position = position_stack(vjust = 0.5),
+             size = 2.3,
+             colour = 'black')+
+  guides(fill = F)+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1,vjust = 0.5)) 
 ```
 
 ![](InternationalStudents_files/figure-markdown_github/FromTWNCountryBar-1.png)
@@ -430,8 +436,41 @@ ggplot()+geom_bar(data=TSstudent,
 ### 台灣大專院校的學生最喜歡去哪些國家進修交流面量圖
 
 ``` r
-#這是R Code Chunk
+names(TCstudent)<-c("國別","總人數")
+TCompare<-merge(TCstudent,Compare,by = "國別")
+df2 = data.frame(region=TCompare$English, value=TCompare$總人數)
+df2<-df2[!duplicated(df2$region), ]
+country_choropleth(df2)+ 
+                 scale_fill_brewer(name="總人數", palette=4, na.value="white")
 ```
+
+    ## Warning in super$initialize(country.map, user.df): Your data.frame contains
+    ## the following regions which are not mappable: Unmatch, Singapore
+
+    ## Warning: Column `region` joining character vector and factor, coercing into
+    ## character vector
+
+    ## Warning in self$bind(): The following regions were missing and are being
+    ## set to NA: afghanistan, angola, azerbaijan, moldova, madagascar, macedonia,
+    ## mali, myanmar, montenegro, mozambique, mauritania, burundi, namibia,
+    ## nigeria, nicaragua, pakistan, papua new guinea, benin, paraguay, rwanda,
+    ## western sahara, sudan, burkina faso, south sudan, senegal, sierra leone,
+    ## el salvador, somaliland, somalia, suriname, syria, chad, togo, tajikistan,
+    ## turkmenistan, east timor, bulgaria, trinidad and tobago, taiwan, united
+    ## republic of tanzania, uganda, ukraine, uruguay, uzbekistan, the bahamas,
+    ## venezuela, vanuatu, yemen, zambia, zimbabwe, bosnia and herzegovina,
+    ## belarus, albania, bolivia, bhutan, botswana, central african republic,
+    ## united arab emirates, ivory coast, cameroon, democratic republic of
+    ## the congo, republic of congo, cuba, northern cyprus, cyprus, argentina,
+    ## djibouti, dominican republic, algeria, eritrea, armenia, ethiopia, gabon,
+    ## georgia, ghana, antarctica, guinea, gambia, guinea bissau, equatorial
+    ## guinea, guatemala, guyana, honduras, haiti, iran, iraq, kazakhstan, kenya,
+    ## kyrgyzstan, kosovo, laos, lebanon, liberia, libya, lesotho, luxembourg
+
+    ## Scale for 'fill' is already present. Adding another scale for 'fill',
+    ## which will replace the existing scale.
+
+![](InternationalStudents_files/figure-markdown_github/FromTWNCountryMap-1.png)
 
 台灣學生出國留學分析
 --------------------
@@ -439,7 +478,6 @@ ggplot()+geom_bar(data=TSstudent,
 ### 資料匯入與處理
 
 ``` r
-#這是R Code Chunk
 twc<- read_csv("105fuck.csv")
 ```
 
@@ -462,7 +500,6 @@ twc[,4:6]<-NULL
 ### 台灣學生最喜歡去哪些國家留學呢？
 
 ``` r
-#這是R Code Chunk
 twc<-twc%>%
   select("國別","總人數")%>%
   arrange(desc(總人數))
@@ -485,10 +522,50 @@ knitr::kable(head(twc,10))
 ### 台灣學生最喜歡去哪些國家留學面量圖
 
 ``` r
-#這是R Code Chunk
+TwcCompare<-merge(twc,Compare,by = "國別")
+df3 = data.frame(region=TwcCompare$English, value=TwcCompare$總人數)
+df3<-df[!duplicated(df3$region), ]
+country_choropleth(df3)+ 
+                 scale_fill_brewer(name="總人數", palette=4, na.value="white")
 ```
+
+    ## Warning in super$initialize(country.map, user.df): Your data.frame contains
+    ## the following regions which are not mappable: Unmatch, Singapore
+
+    ## Warning: Column `region` joining character vector and factor, coercing into
+    ## character vector
+
+    ## Warning in self$bind(): The following regions were missing and are being
+    ## set to NA: afghanistan, angola, moldova, madagascar, mali, montenegro,
+    ## mauritania, burundi, niger, oman, qatar, western sahara, sierra leone,
+    ## somaliland, somalia, suriname, chad, togo, east timor, trinidad and tobago,
+    ## taiwan, the bahamas, vanuatu, zambia, albania, botswana, central african
+    ## republic, democratic republic of the congo, northern cyprus, cyprus,
+    ## djibouti, eritrea, gabon, georgia, ghana, antarctica, guinea, guinea
+    ## bissau, equatorial guinea, guyana, jamaica, south korea, kosovo, lebanon,
+    ## liberia, libya, lesotho
+
+    ## Scale for 'fill' is already present. Adding another scale for 'fill',
+    ## which will replace the existing scale.
+
+![](InternationalStudents_files/figure-markdown_github/FromTWNAbMap-1.png)
 
 綜合分析
 --------
 
-請問來台讀書與離台讀書的來源國與留學國趨勢是否相同(5分)？想來台灣唸書的境外生，他們的母國也有很多台籍生嗎？請圖文並茂說明你的觀察(10分)。
+*請問來台讀書與離台讀書的來源國與留學國趨勢是否相同(5分)？* ans:否，依下列散布圖顯示來台讀書與離台讀書的來源國與留學國並沒有關聯性，兩者不一定因對方國家的增加而增加或減少 *想來台灣唸書的境外生，他們的母國也有很多台籍生嗎？請圖文並茂說明你的觀察(10分)。* ans:如圖所示，只有中國大陸的境外生與留學生呈正相關，其他國家只有少數國家來台人數較多，其餘都是台灣學生留學較多。
+
+``` cstudent
+library(ggplot2)
+names(CStudent)<-c("國別","來源國人數")
+names(TCstudent)<-c("國別","留學國人數")
+data0<-merge(CStudent,TCstudent,by = "國別")
+data0<-data0%>%
+  arrange(desc(來源國人數+留學國人數))%>%
+  head(25)
+ggplot(data0, 
+       aes(x =留學國人數, 
+           y =來源國人數,
+           color=國別)) + 
+  geom_point()
+```

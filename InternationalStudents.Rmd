@@ -62,11 +62,13 @@ names(SStudent)<-c("學校名稱","total103","total104","total105","total106")
 
 ### 1.哪些國家來台灣唸書的學生最多呢？請取出前十名的國家與總人數，由大到小排序(5分)。 
 ```{r ToTWNCountry}
+library(dplyr)
 CStudent<-CStudent%>%
   mutate(總人數=rowSums(CStudent[,2:5]))%>%
   select(國別,總人數)%>%
   arrange(desc(總人數))
-knitr::kable(head(CStudent,10))
+CStudent10<-head(CStudent,10)
+knitr::kable(CStudent10)
 ```
 
 ### 哪間大學的境外生最多呢？請取出前十名的大學與總人數，由大到小排序(5分)
@@ -81,21 +83,27 @@ knitr::kable(head(SStudent,10))
 ### 2.各個國家來台灣唸書的學生人數條狀圖
 ```{r ToTWNCountryBar}
 library(ggplot2)
-ggplot()+geom_bar(data=CStudent,
-                  aes(x=國別,y=總人數),
-                  stat = "identity") 
+ggplot()+geom_bar(data=CStudent10,
+                  aes(x=國別,y=總人數,fill = 國別),
+                  stat = "identity")+
+  labs(title = "各個國家來台灣唸書的學生人數")+
+  geom_label(position = position_stack(vjust = 0.5),
+             size = 2.3,
+             colour = 'black')+
+  guides(fill = F)+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1,vjust = 0.5)) 
 ```
 
 ### 3.各個國家來台灣唸書的學生人數面量圖
 ```{r ToTWNCountryMap}
 library(choroplethr)
-library(choroplethrMaps)
-CCompare <- read_csv("CountriesComparisionTable.csv")
-names(CCompare)<-c("ISO3","English","國別")
-CCompare<-merge(CStudent,CCompare,by = "國別")
-df = data.frame(region=CCompare$English, value=CCompare$來源國人數)
+Compare <- read_csv("CountriesComparisionTable.csv")
+names(Compare)<-c("ISO3","English","國別")
+CCompare<-merge(CStudent,Compare,by = "國別")
+df = data.frame(region=CCompare$English, value=CCompare$總人數)
 df<-df[!duplicated(df$region), ]
-country_choropleth(df)
+country_choropleth(df)+ 
+                 scale_fill_brewer(name="總人數", palette=4, na.value="white")
 ```
 
 ## 台灣學生國際交流分析
@@ -103,7 +111,6 @@ country_choropleth(df)
 ### 資料匯入與處理
 ```{r dataloadFromTWN}
 library(readxl)
-library(dplyr)
 TWstudent<- read_excel("Student_RPT_07.xlsx")
 ```
 
@@ -122,23 +129,31 @@ TSstudent<-TWstudent%>%
   group_by(學校名稱)%>%
   summarise(總人數=sum(小計))%>%
   arrange(desc(總人數))
-knitr::kable(head(TSstudent,10))
+TSstudent10<-head(TSstudent,10)
+knitr::kable(TSstudent10)
 ```
 
 ### 台灣大專院校的學生最喜歡去哪些國家進修交流條狀圖
 ```{r FromTWNCountryBar}
-ggplot()+geom_bar(data=TSstudent,
-                  aes(x=學校名稱,y=總人數),
-                  stat = "identity") 
+ggplot()+geom_bar(data=TSstudent10,
+                  aes(x=學校名稱,y=總人數,fill=學校名稱),
+                  stat = "identity")+
+  labs(title = "台灣大專院校的學生最喜歡去哪些國家進修")+
+  geom_label(position = position_stack(vjust = 0.5),
+             size = 2.3,
+             colour = 'black')+
+  guides(fill = F)+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1,vjust = 0.5)) 
 ```
 
 ### 台灣大專院校的學生最喜歡去哪些國家進修交流面量圖
 ```{r FromTWNCountryMap}
 names(TCstudent)<-c("國別","總人數")
-TCompare<-merge(TCstudent,CCompare,by = "國別")
-df = data.frame(region=TCompare$English, value=TCompare$總人數)
-df<-df[!duplicated(df$region), ]
-country_choropleth(df)
+TCompare<-merge(TCstudent,Compare,by = "國別")
+df2 = data.frame(region=TCompare$English, value=TCompare$總人數)
+df2<-df2[!duplicated(df2$region), ]
+country_choropleth(df2)+ 
+                 scale_fill_brewer(name="總人數", palette=4, na.value="white")
 ```
 
 ## 台灣學生出國留學分析
@@ -159,15 +174,34 @@ knitr::kable(head(twc,10))
 
 ### 台灣學生最喜歡去哪些國家留學面量圖
 ```{r FromTWNAbMap}
-TwcCompare<-merge(twc,CCompare,by = "國別")
-df = data.frame(region=TwcCompare$English, value=TwcCompare$總人數)
-df<-df[!duplicated(df$region), ]
-country_choropleth(df)
+TwcCompare<-merge(twc,Compare,by = "國別")
+df3 = data.frame(region=TwcCompare$English, value=TwcCompare$總人數)
+df3<-df[!duplicated(df3$region), ]
+country_choropleth(df3)+ 
+                 scale_fill_brewer(name="總人數", palette=4, na.value="white")
 ```
 
 ## 綜合分析
 
-請問來台讀書與離台讀書的來源國與留學國趨勢是否相同(5分)？
-想來台灣唸書的境外生，他們的母國也有很多台籍生嗎？請圖文並茂說明你的觀察(10分)。
+**請問來台讀書與離台讀書的來源國與留學國趨勢是否相同(5分)？**
+ans:否，依下列散布圖顯示來台讀書與離台讀書的來源國與留學國並沒有關聯性，兩者不一定因對方國家的增加而增加或減少
+
+**想來台灣唸書的境外生，他們的母國也有很多台籍生嗎？請圖文並茂說明你的觀察(10分)。**
+ans:如圖所示，只有中國大陸的境外生與留學生呈正相關，其他國家只有少數國家來台人數較多，其餘都是台灣學生留學較多。
+```{CStudent}
+library(ggplot2)
+names(CStudent)<-c("國別","來源國人數")
+names(TCstudent)<-c("國別","留學國人數")
+data0<-merge(CStudent,TCstudent,by = "國別")
+data0<-data0%>%
+  arrange(desc(來源國人數+留學國人數))%>%
+  head(25)
+ggplot(data0, 
+       aes(x =留學國人數, 
+           y =來源國人數,
+           color=國別)) + 
+  geom_point()
+
+```
 
 

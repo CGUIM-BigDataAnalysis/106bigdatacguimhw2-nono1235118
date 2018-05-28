@@ -1,4 +1,4 @@
-"0","head(twc,10)
+"0","knitr::kable(head(twc,10))
 "
 "2","Warning message:
 "

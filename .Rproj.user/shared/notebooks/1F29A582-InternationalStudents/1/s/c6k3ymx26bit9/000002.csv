@@ -1,0 +1,17 @@
+"0","SStudent<-merge(select(S103,""學校名稱"",total103),
+                select(S104,""學校名稱"",total104),
+                by = ""學校名稱"",all=T)
+"
+"2","Warning message:
+"
+"2","In strsplit(code, ""\n"", fixed = TRUE) :"
+"2","
+ "
+"2"," input string 1 is invalid in this locale
+"
+"0","SStudent<-merge(SStudent,"
+"0","                select(S105,""學校名稱"",total105),"
+"0","                by = ""學校名稱"",all=T)"
+"0","SStudent<-merge(SStudent,"
+"0","                select(S106,""學校名稱"",total106),"
+"0","                by = ""學校名稱"",all=T)"

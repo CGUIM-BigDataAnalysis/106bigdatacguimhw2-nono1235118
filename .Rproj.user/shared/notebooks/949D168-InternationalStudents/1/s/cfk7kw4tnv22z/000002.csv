@@ -1,0 +1,194 @@
+"0","#éœ€è¼‰å…¥ä¹‹ç›¸é—œå¥—ä»¶"
+"0","library(readr)"
+"2","Warning message:
+"
+"2","In strsplit(code, ""\n"", fixed = TRUE) :"
+"2","
+ "
+"2"," input string 1 is invalid in this locale
+"
+"0","library(dplyr)"
+"0","library(readxl)"
+"0","library(ggplot2)"
+"0","library(ggmap)"
+"0","library(choroplethr)"
+"0","library(choroplethrMaps)"
+"0","library(knitr)"
+"0","C103 <- read_csv(""~/GitHub/106bigdatacguimhw2-paperfish-master/103_ab103_C.csv"")"
+"2","Parsed with column specification:
+cols(
+  ¬w§O = col_character(),
+  °ê§O = col_character(),
+  `¾Ç¦ì¥Í-¥¿¦¡­×Åª¾Ç¦ì¥~°ê¥Í` = col_integer(),
+  `¾Ç¦ì¥Í-¹´¥Í(§t´ä¿D)` = col_integer(),
+  `¾Ç¦ì¥Í-¥¿¦¡­×Åª¾Ç¦ì³°¥Í` = col_integer(),
+  `«D¾Ç¦ì¥Í-¥~°ê¥æ´«¥Í` = col_integer(),
+  `«D¾Ç¦ì¥Í-¥~°êµu´Á¬ã²ß¤Î­Ó¤H¿ïÅª` = col_integer(),
+  `«D¾Ç¦ì¥Í-¤j±Mªþ³]µØ»y¤å¤¤¤ß¾Ç¥Í` = col_integer(),
+  `«D¾Ç¦ì¥Í-¤j³°¬ã­×¥Í` = col_integer(),
+  `«D¾Ç¦ì¥Í-®ü«C¯Z` = col_integer(),
+  ¹Ò¥~±M¯Z = col_integer()
+)
+"
+"0","C104 <- read_csv(""~/GitHub/106bigdatacguimhw2-paperfish-master/104_ab104_C.csv"")"
+"2","Parsed with column specification:
+cols(
+  ¬w§O = col_character(),
+  °ê§O = col_character(),
+  `¾Ç¦ì¥Í-¥¿¦¡­×Åª¾Ç¦ì¥~°ê¥Í` = col_integer(),
+  `¾Ç¦ì¥Í-¹´¥Í(§t´ä¿D)` = col_integer(),
+  `¾Ç¦ì¥Í-¥¿¦¡­×Åª¾Ç¦ì³°¥Í` = col_integer(),
+  `«D¾Ç¦ì¥Í-¥~°ê¥æ´«¥Í` = col_integer(),
+  `«D¾Ç¦ì¥Í-¥~°êµu´Á¬ã²ß¤Î­Ó¤H¿ïÅª` = col_integer(),
+  `«D¾Ç¦ì¥Í-¤j±Mªþ³]µØ»y¤å¤¤¤ß¾Ç¥Í` = col_integer(),
+  `«D¾Ç¦ì¥Í-¤j³°¬ã­×¥Í` = col_integer(),
+  `«D¾Ç¦ì¥Í-®ü«C¯Z` = col_integer(),
+  ¹Ò¥~±M¯Z = col_integer()
+)
+"
+"0","C105 <- read_csv(""~/GitHub/106bigdatacguimhw2-paperfish-master/105_ab105_C.csv"")"
+"2","Parsed with column specification:
+cols(
+  ¬w§O = col_character(),
+  °ê§O = col_character(),
+  ¾Ç¦ì¥Í_¥¿¦¡­×Åª¾Ç¦ì¥~°ê¥Í = col_integer(),
+  `¾Ç¦ì¥Í_¹´¥Í(§t´ä¿D)` = col_integer(),
+  ¾Ç¦ì¥Í_¥¿¦¡­×Åª¾Ç¦ì³°¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_¥~°ê¥æ´«¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_¥~°êµu´Á¬ã²ß¤Î­Ó¤H¿ïÅª = col_integer(),
+  «D¾Ç¦ì¥Í_¤j±Mªþ³]µØ»y¤å¤¤¤ß¾Ç¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_¤j³°¬ã­×¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_®ü«C¯Z = col_integer(),
+  ¹Ò¥~±M¯Z = col_integer()
+)
+"
+"0","C106 <- read_csv(""~/GitHub/106bigdatacguimhw2-paperfish-master/106_ab105_C.csv"")"
+"2","Parsed with column specification:
+cols(
+  ¬w§O = col_character(),
+  °ê§O = col_character(),
+  ¾Ç¦ì¥Í_¥¿¦¡­×Åª¾Ç¦ì¥~°ê¥Í = col_integer(),
+  `¾Ç¦ì¥Í_¹´¥Í(§t´ä¿D)` = col_integer(),
+  ¾Ç¦ì¥Í_¥¿¦¡­×Åª¾Ç¦ì³°¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_¥~°ê¥æ´«¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_¥~°êµu´Á¬ã²ß¤Î­Ó¤H¿ïÅª = col_integer(),
+  «D¾Ç¦ì¥Í_¤j±Mªþ³]µØ»y¤å¤¤¤ß¾Ç¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_¤j³°¬ã­×¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_®ü«C¯Z = col_integer(),
+  ¹Ò¥~±M¯Z = col_integer()
+)
+"
+"0","#æ–°å¢žä¸€æ¬„ä½å°‡æ¯ä¸€å¹´åº¦æ‰€æœ‰ä¾†å°å¿µæ›¸çš„å­¸ç”Ÿä½œåŠ ç¸½"
+"0","C103$total<-rowSums(C103[,3:11],na.rm = T)"
+"0","C104$total<-rowSums(C104[,3:11],na.rm = T)"
+"0","C105$total<-rowSums(C105[,3:11],na.rm = T)"
+"0","C106$total<-rowSums(C106[,3:11],na.rm = T)"
+"0","#å°‡103ã€104ã€105ã€106å¹´åº¦åˆä½µç‚ºä¸€è¡¨ï¼Œä¸¦é‡æ–°å‘½åå…¶æ¬„ä½åç¨±"
+"0","CStudent<-merge(select(C103,""åœ‹åˆ¥"",total),"
+"0","                select(C104,""åœ‹åˆ¥"",total),"
+"0","                by = ""åœ‹åˆ¥"",all=T)"
+"0","CStudent<-merge(CStudent,"
+"0","                select(C105,""åœ‹åˆ¥"",total),"
+"0","                by = ""åœ‹åˆ¥"",all=T)"
+"0","CStudent<-merge(CStudent,"
+"0","                select(C106,""åœ‹åˆ¥"",total),"
+"0","                by = ""åœ‹åˆ¥"",all=T)"
+"2","column names ¡¥total.x¡¦, ¡¥total.y¡¦ are duplicated in the result"
+"0","names(CStudent)<-c(""åœ‹åˆ¥"",""total103"",""total104"",""total105"",""total106"")"
+"0","S103<- read_csv(""~/GitHub/106bigdatacguimhw2-paperfish-master/103_ab103_S.csv"")"
+"2","Parsed with column specification:
+cols(
+  ¾Ç®ÕÃþ«¬ = col_character(),
+  ¾Ç®Õ¥N½X = col_character(),
+  ¾Ç®Õ¦WºÙ = col_character(),
+  `¾Ç¦ì¥Í-¥¿¦¡­×Åª¾Ç¦ì¥~°ê¥Í` = col_integer(),
+  `¾Ç¦ì¥Í-¹´¥Í(§t´ä¿D)` = col_integer(),
+  `¾Ç¦ì¥Í-¥¿¦¡­×Åª¾Ç¦ì³°¥Í` = col_integer(),
+  `«D¾Ç¦ì¥Í-¥~°ê¥æ´«¥Í` = col_integer(),
+  `«D¾Ç¦ì¥Í-¥~°êµu´Á¬ã²ß¤Î­Ó¤H¿ïÅª` = col_integer(),
+  `«D¾Ç¦ì¥Í-¤j±Mªþ³]µØ»y¤å¤¤¤ß¾Ç¥Í` = col_integer(),
+  `«D¾Ç¦ì¥Í-¤j³°¬ã­×¥Í` = col_character(),
+  `«D¾Ç¦ì¥Í-®ü«C¯Z` = col_integer(),
+  ¹Ò¥~±M¯Z = col_integer()
+)
+"
+"0","S104<- read_csv(""~/GitHub/106bigdatacguimhw2-paperfish-master/104_ab104_S.csv"")"
+"2","Parsed with column specification:
+cols(
+  ¾Ç®ÕÃþ«¬ = col_character(),
+  ¾Ç®Õ¥N½X = col_character(),
+  ¾Ç®Õ¦WºÙ = col_character(),
+  `¾Ç¦ì¥Í-¥¿¦¡­×Åª¾Ç¦ì¥~°ê¥Í` = col_integer(),
+  `¾Ç¦ì¥Í-¹´¥Í(§t´ä¿D)` = col_integer(),
+  `¾Ç¦ì¥Í-¥¿¦¡­×Åª¾Ç¦ì³°¥Í` = col_integer(),
+  `«D¾Ç¦ì¥Í-¥~°ê¥æ´«¥Í` = col_integer(),
+  `«D¾Ç¦ì¥Í-¥~°êµu´Á¬ã²ß¤Î­Ó¤H¿ïÅª` = col_integer(),
+  `«D¾Ç¦ì¥Í-¤j±Mªþ³]µØ»y¤å¤¤¤ß¾Ç¥Í` = col_integer(),
+  `«D¾Ç¦ì¥Í-¤j³°¬ã­×¥Í` = col_character(),
+  `«D¾Ç¦ì¥Í-®ü«C¯Z` = col_integer(),
+  ¹Ò¥~±M¯Z = col_integer()
+)
+"
+"0","S105<- read_csv(""~/GitHub/106bigdatacguimhw2-paperfish-master/105_ab105_S.csv"")"
+"2","Parsed with column specification:
+cols(
+  ¾Ç®ÕÃþ«¬ = col_character(),
+  ¾Ç®Õ¥N½X = col_character(),
+  ¾Ç®Õ¦WºÙ = col_character(),
+  ¾Ç¦ì¥Í_¥¿¦¡­×Åª¾Ç¦ì¥~°ê¥Í = col_integer(),
+  `¾Ç¦ì¥Í_¹´¥Í(§t´ä¿D)` = col_integer(),
+  ¾Ç¦ì¥Í_¥¿¦¡­×Åª¾Ç¦ì³°¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_¥~°ê¥æ´«¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_¥~°êµu´Á¬ã²ß¤Î­Ó¤H¿ïÅª = col_integer(),
+  «D¾Ç¦ì¥Í_¤j±Mªþ³]µØ»y¤å¤¤¤ß¾Ç¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_¤j³°¬ã­×¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_®ü«C¯Z = col_integer(),
+  ¹Ò¥~±M¯Z = col_integer()
+)
+"
+"0","S106<- read_csv(""~/GitHub/106bigdatacguimhw2-paperfish-master/106_ab105_S.csv"")"
+"2","Parsed with column specification:
+cols(
+  ¾Ç®ÕÃþ«¬ = col_character(),
+  ¾Ç®Õ¥N½X = col_character(),
+  ¾Ç®Õ¦WºÙ = col_character(),
+  ¾Ç¦ì¥Í_¥¿¦¡­×Åª¾Ç¦ì¥~°ê¥Í = col_integer(),
+  `¾Ç¦ì¥Í_¹´¥Í(§t´ä¿D)` = col_integer(),
+  ¾Ç¦ì¥Í_¥¿¦¡­×Åª¾Ç¦ì³°¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_¥~°ê¥æ´«¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_¥~°êµu´Á¬ã²ß¤Î­Ó¤H¿ïÅª = col_integer(),
+  «D¾Ç¦ì¥Í_¤j±Mªþ³]µØ»y¤å¤¤¤ß¾Ç¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_¤j³°¬ã­×¥Í = col_integer(),
+  «D¾Ç¦ì¥Í_®ü«C¯Z = col_integer(),
+  ¹Ò¥~±M¯Z = col_integer()
+)
+"
+"0","#å°‡`éžå­¸ä½ç”Ÿ-å¤§é™¸ç ”ä¿®ç”Ÿ`æ­¤æ¬„ä½è½‰æˆæ•¸å€¼ï¼Œä¸¦å°‡ä¸æ˜¯æ•¸å€¼çš„æ±è¥¿è½‰æˆNA"
+"0","S103$`éžå­¸ä½ç”Ÿ-å¤§é™¸ç ”ä¿®ç”Ÿ`<-as.numeric(gsub(""â€¦"",NA,S103$`éžå­¸ä½ç”Ÿ-å¤§é™¸ç ”ä¿®ç”Ÿ`))"
+"0","S104$`éžå­¸ä½ç”Ÿ-å¤§é™¸ç ”ä¿®ç”Ÿ`<-as.numeric(gsub(""â€¦"",NA,S104$`éžå­¸ä½ç”Ÿ-å¤§é™¸ç ”ä¿®ç”Ÿ`))"
+"0","#æ–°å¢žä¸€æ¬„ä½å°‡æ¯ä¸€å¹´åº¦æ‰€æœ‰å­¸æ ¡å‡ºåœ‹å¿µæ›¸çš„å­¸ç”Ÿä½œåŠ ç¸½"
+"0","S103$total<-rowSums(S103[,4:12],na.rm = T)"
+"0","S104$total<-rowSums(S104[,4:12],na.rm = T)"
+"0","S105$total<-rowSums(S105[,4:12],na.rm = T)"
+"0","S106$total<-rowSums(S106[,4:12],na.rm = T)"
+"0","#å°‡103ã€104ã€105ã€106å¹´åº¦åˆä½µç‚ºä¸€è¡¨ï¼Œä¸¦é‡æ–°å‘½åå…¶æ¬„ä½åç¨±"
+"0","SStudent<-merge(select(S103,""å­¸æ ¡åç¨±"",total),"
+"0","                select(S104,""å­¸æ ¡åç¨±"",total),"
+"0","                by = ""å­¸æ ¡åç¨±"")"
+"0","SStudent<-merge(SStudent,"
+"0","                select(S105,""å­¸æ ¡åç¨±"",total),"
+"0","                by = ""å­¸æ ¡åç¨±"")"
+"0","SStudent<-merge(SStudent,"
+"0","                select(S106,""å­¸æ ¡åç¨±"",total),"
+"0","                by = ""å­¸æ ¡åç¨±"")"
+"2","column names ¡¥total.x¡¦, ¡¥total.y¡¦ are duplicated in the result"
+"0","names(SStudent)<-c(""å­¸æ ¡åç¨±"",""total103"",""total104"",""total105"",""total106"")"
+"0","Compare <- read_csv(""~/GitHub/106bigdatacguimhw2-paperfish-master/CountriesComparisionTable.csv"")"
+"2","Parsed with column specification:
+cols(
+  ISO3 = col_character(),
+  English = col_character(),
+  Taiwan = col_character()
+)
+"
+"0","names(Compare)<-c(""ISO3"",""English"",""åœ‹åˆ¥"")"

@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1527513831334.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "5C31EDB1",
+    "lastKnownWriteTime" : 7524786503638056962,
+    "last_content_update" : 1527513831334,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "F686E18D",
+        "caption" : "TCompare",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=TCompare&cache_key=F686E18D",
+        "displayedObservations" : 80,
+        "environment" : "",
+        "object" : "TCompare",
+        "preview" : 0,
+        "totalObservations" : 80,
+        "variables" : 5
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
